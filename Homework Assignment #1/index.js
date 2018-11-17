@@ -4,12 +4,39 @@
 
 
 var http = require('http');
+var https = require('https');
 var url = require('url');
 var StringDecoder = require('string_decoder').StringDecoder;
 var config = require('./config');
+var fs = require('fs');
 var helloResponse = require('./helloResponse');
 
-var server = http.createServer(function (req, res) {
+// Instatiating the http server
+var httpServer = http.createServer(function (req, res) {
+  unifiedServer(req, res);
+});
+
+// Start the http server
+httpServer.listen(config.httpPort, function () {
+  console.log("The server is listening on " + config.httpPort);
+})
+
+// Instatiating the https server
+var httpsServerOptions = {
+  'key': fs.readFileSync('./https/key.pem'),
+  'cert': fs.readFileSync('./https/cert.pem')
+};
+var httpsServer = https.createServer(httpsServerOptions, function (req, res) {
+  unifiedServer(req, res);
+});
+
+// Start the https server
+httpsServer.listen(config.httpsPort, function () {
+  console.log("The server is listening on " + config.httpsPort);
+})
+
+// Combined server logic
+var unifiedServer = function (req, res) {
 
   var parsedUrl = url.parse(req.url, true);
 
@@ -64,14 +91,9 @@ var server = http.createServer(function (req, res) {
       res.writeHead(statusCode);
       res.end(payloadString);
     });
+
   });
-
-});
-
-// Start the server
-server.listen(config.port, function () {
-  console.log("The server is listening on " + config.port + ' in ' + config.envName + ' mode');
-})
+};
 
 var handlers = {};
 
