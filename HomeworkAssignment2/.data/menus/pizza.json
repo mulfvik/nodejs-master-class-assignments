@@ -1,0 +1,46 @@
+{
+  "Margarita": {
+    "toppings": "",
+    "price": "65/92 kr"
+  },
+  "Fungi": {
+    "toppings": "Färska champinjoner",
+    "price": "65/92 kr"
+  },
+  "Vesuvio": {
+    "toppings": "Skinka",
+    "price": "65/92 kr"
+  },
+  "Capricciosa": {
+    "toppings": "Skinka, färska champinjoner",
+    "price": "65/92 kr"
+  },
+  "Hawaii": {
+    "toppings": "Skinka, ananas",
+    "price": "65/92 kr"
+  },
+  "Bosola": {
+    "toppings": "Skinka, räkor",
+    "price": "82/97 kr"
+  },
+  "Calzone": {
+    "toppings": "Skinka (inbakad)",
+    "price": "65/92 kr"
+  },
+  "Al tonno": {
+    "toppings": "Tonfisk, lök",
+    "price": "82/97 kr"
+  },
+  "Campagnola": {
+    "toppings": "Italiensk salami, lök",
+    "price": "82/97 kr"
+  },
+  "Bolognese": {
+    "toppings": "Köttfärs",
+    "price": "65/92 kr"
+  },
+  "Ludwig Special": {
+    "toppings": "Ananas, paprika, lök, hackad feferoni, italiensk, salami, kyckling, köttfärs, curry, mild vitlökssås",
+    "price": "98/113 kr"
+  }
+}
