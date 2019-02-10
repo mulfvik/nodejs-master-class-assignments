@@ -1,6 +1,5 @@
 /**
  * Module for server related tasks
- * @module server
  */
 
 // Dependencies
@@ -10,7 +9,7 @@ const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
 const config = require('./config');
 const fs = require('fs');
-const handlers = require('./handlers');
+const handlers = require('../handlers/handlers');
 const helpers = require('./helpers');
 const path = require('path');
 
@@ -31,7 +30,7 @@ server.httpsServer = https.createServer((req, res) => server.unifiedServer(req, 
 server.unifiedServer = (req, res) => {
 
   // Get the url and parse it
-  const parsedUrl = url.parse(req.url, true)
+  const parsedUrl = url.parse(req.url, true);
 
   // Get the path of the url
   const path = parsedUrl.pathname;
@@ -65,7 +64,7 @@ server.unifiedServer = (req, res) => {
       'method': method,
       'headers': headers,
       'payload': helpers.parseJsonToObject(buffer)
-    };
+    }
 
     // Route the request to the handler specified in the router
     chosenHandler(data, (statusCode, payload) => {
@@ -89,17 +88,19 @@ server.unifiedServer = (req, res) => {
         console.log('\x1b[32m%s\x1b[0m', method.toUpperCase() + ' /' + trimmedPath + ' ' + statusCode);
       } else {
         console.log('\x1b[31m%s\x1b[0m', method.toUpperCase() + ' /' + trimmedPath + ' ' + statusCode);
-      };
-    });
-  });
-};
+      }
+    })
+  })
+}
 
 
 // Request routs
 server.router = {
   'users': handlers.users,
-  'tokens': handlers.tokens
-};
+  'tokens': handlers.tokens,
+  'menus': handlers.menus,
+  'cart': handlers.cart
+}
 
 // Initialize the servers
 server.init = () => {
@@ -107,13 +108,13 @@ server.init = () => {
   // Start the HTTP server
   server.httpServer.listen(config.httpPort, () => {
     console.log('\x1b[36m%s\x1b[0m', 'The HTTP server is running on port ' + config.httpPort);
-  });
+  })
 
   // Start the HTTPS server
   server.httpsServer.listen(config.httpsPort, () => {
     console.log('\x1b[35m%s\x1b[0m', 'The HTTPS server is running on port ' + config.httpsPort);
-  });
-};
+  })
+}
 
 // Export server object
 module.exports = server;

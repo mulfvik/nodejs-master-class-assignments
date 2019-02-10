@@ -1,6 +1,5 @@
 /**
  * Helpers for tasks
- * @module helpers
  */
 
 // Dependencies

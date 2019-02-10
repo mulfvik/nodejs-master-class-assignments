@@ -1,6 +1,5 @@
 /**
  * Module for configuration of enviroments
- * @module config
  */
 
 // Environments container

@@ -1,6 +1,5 @@
 /**
  * Library for storing and editing data
- * @module lib
  */
 
 // Dependencies

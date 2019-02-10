@@ -15,7 +15,7 @@
 
 /**
  * Primary module for the application
- * @module app
+ * 
  */
 
 // Dependencies

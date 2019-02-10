@@ -1,33 +1,35 @@
 /**
- * Handlers for requests
- * @module handlers
+ * Users handlers
  */
 
 // Dependencies
-const _data = require('./data');
-const helpers = require('./helpers');
-const config = require('./config');
+const _data = require('../lib/data');
+const helpers = require('../lib/helpers');
+const tokenHandlers = require('./tokensHandler');
 
-// Handlers container
-const handlers = {};
+// User handlers container
+const _users = {};
 
-// Users handler
-handlers.users = (data, callback) => {
-  const acceptableMethods = ['post', 'get', 'put', 'delete'];
-  if (acceptableMethods.indexOf(data.method) > -1) {
-    handlers._users[data.method](data, callback);
-  } else {
-    callback(405);
-  }
-}
-
-// User container
-handlers._users = {};
+/**
+ * @apiName CreateUser
+ * @apiGroup Users
+ * @api {post} /users Create user
+ * @apiParamExample {json} Request example:
+ *     {
+ *       "name": "John Doe",
+ *       "streetAddress": "Street 7",
+ *       "email": "john.doe@email.com",
+ *       "password": "password"
+ *     }
+ * @apiSuccessExample Success response:
+ *     200 OK
+ *     {}
+ */
 
 // Users - POST
 // Required data: name, streetAddress, email, password
 // Optional data: none
-handlers._users.post = (data, callback) => {
+_users.post = (data, callback) => {
   // Check that all required fields are filled out
   const name = typeof (data.payload.name) === 'string' && data.payload.name.trim().length > 0 ? data.payload.name.trim() : false;
   const streetAddress = typeof (data.payload.streetAddress) === 'string' && data.payload.streetAddress.trim().length > 0 ? data.payload.streetAddress : false;
@@ -71,17 +73,40 @@ handlers._users.post = (data, callback) => {
   }
 }
 
+/**
+ * @apiName GetUser
+ * @apiGroup Users
+ * @api {get} /users?email Get user information
+ * @apiHeader token Active token required
+ * @apiHeaderExample Header example:
+ *     {
+ *       "token": gid1btk4b0qg3wyqyivg
+ *     }
+ * 
+ * @apiParam {String} email Users unique ID
+ * @apiParamExample Request example:
+ *     email=john.doe@email.com
+ * 
+ * @apiSuccessExample Success response:
+ *     200 OK
+ *     {
+ *       "name": "John Doe",
+ *       "streetAddress": "Street 7",
+ *       "email": "john.doe@email.com"
+ *     }
+ */
+
 // Users - GET
-// Required data: email
+// Required data: email, token
 // Optional data: none
-handlers._users.get = (data, callback) => {
+_users.get = (data, callback) => {
   // Check that email address is valid
   const email = helpers.validateEmail(data.queryStringObject.email) ? data.queryStringObject.email.trim() : false;
   if (email) {
     // Get token from headers
     const token = typeof (data.headers.token) === 'string' ? data.headers.token : false;
     // Verify that the given token is valid for the email address
-    handlers._tokens.verifyToken(token, email, (tokenIsValid) => {
+    tokenHandlers.verifyToken(token, email, (tokenIsValid) => {
       if (tokenIsValid) {
         // Lookup the user
         _data.read('users', email, (err, data) => {
@@ -102,10 +127,34 @@ handlers._users.get = (data, callback) => {
   }
 }
 
+/**
+ * @apiName UpdateUser
+ * @apiGroup Users
+ * @api {put} /users Update user information
+ * @apiHeader token Active token required
+ * @apiHeaderExample Header example:
+ *     {
+ *       "token": gid1btk4b0qg3wyqyivg
+ *     }
+ * 
+ * @apiParam {String} email Required
+ * @apiParamExample {json} Request example (at least one must be specified):
+ *     {
+ *       "name": "John Dolittle",
+ *       "streetAddress": "Road 7",
+ *       "email": "john.doe@email.com",
+ *       "password": "secret"
+ *     }
+ * 
+ * @apiSuccessExample Success response:
+ *     200 OK
+ *     {}
+ */
+
 // Users - PUT
 // Required data: email
 // Optional data: name, streetAddress, password (at least one must be specified)
-handlers._users.put = (data, callback) => {
+_users.put = (data, callback) => {
   // Check for the required field
   const email = helpers.validateEmail(data.payload.email) ? data.payload.email.trim() : false;
   // Check for the optonal fields
@@ -119,7 +168,7 @@ handlers._users.put = (data, callback) => {
       // Get token from headers
       const token = typeof (data.headers.token) === 'string' ? data.headers.token : false;
       // Verify that the given token is valid for the email address
-      handlers._tokens.verifyToken(token, email, (tokenIsValid) => {
+      tokenHandlers.verifyToken(token, email, (tokenIsValid) => {
         if (tokenIsValid) {
           // Look up user
           _data.read('users', email, (err, userData) => {
@@ -158,16 +207,35 @@ handlers._users.put = (data, callback) => {
   }
 }
 
+/**
+ * @apiName DeleteUser
+ * @apiGroup Users
+ * @api {delete} /users?email Delete user
+ * @apiHeader token Active token required
+ * @apiHeaderExample Header example:
+ *     {
+ *       "token": gid1btk4b0qg3wyqyivg
+ *     }
+ * 
+ * @apiParam {String} email Users unique ID.
+ * @apiParamExample Request example:
+ *     email=john.doe@email.com
+ * 
+ * @apiSuccessExample Success response:
+ *     200 OK
+ *     {}
+ */
+
 // Users - DELETE
 // Required data: email
-handlers._users.delete = (data, callback) => {
+_users.delete = (data, callback) => {
   // Check that email address is valid
   const email = helpers.validateEmail(data.queryStringObject.email) ? data.queryStringObject.email.trim() : false;
   if (email) {
     // Get token from headers
     const token = typeof (data.headers.token) === 'string' ? data.headers.token : false;
     // Verify that the given token is valid for the email address
-    handlers._tokens.verifyToken(token, email, (tokenIsValid) => {
+    tokenHandlers.verifyToken(token, email, (tokenIsValid) => {
       if (tokenIsValid) {
         // Lookup the user
         _data.read('users', email, (err, userData) => {
@@ -193,160 +261,5 @@ handlers._users.delete = (data, callback) => {
   }
 }
 
-// Users tokens
-handlers.tokens = (data, callback) => {
-  const acceptableMethods = ['post', 'get', 'put', 'delete'];
-  if (acceptableMethods.indexOf(data.method) > -1) {
-    handlers._tokens[data.method](data, callback);
-  } else {
-    callback(405);
-  }
-}
-
-// Tokens container
-handlers._tokens = {};
-
-// tokens - POST
-// Required data: email, password
-// Optional data: none
-handlers._tokens.post = (data, callback) => {
-  const email = helpers.validateEmail(data.payload.email) ? data.payload.email.trim() : false;
-  const password = typeof (data.payload.password) === 'string' && data.payload.password.trim().length > 0 ? data.payload.password.trim() : false;
-  if (email && password) {
-    // Look up the user who matches that email address
-    _data.read('users', email, (err, userData) => {
-      if (!err && userData) {
-        // Hash the sent password and compare it to the password in the user object
-        const hashedPassword = helpers.hash(password);
-        if (hashedPassword === userData.hashedPassword) {
-          // If valid create new token with random name. Set expiration date 1 hour in future
-          const tokenId = helpers.createRandomString(20);
-          const expires = Date.now() + 1000 * 60 * 60;
-          const tokenObject = {
-            'email': email,
-            'id': tokenId,
-            'expires': expires
-          };
-          // Store the token
-          _data.create('tokens', tokenId, tokenObject, (err) => {
-            if (!err) {
-              callback(200, tokenObject)
-            } else {
-              callback(500, { 'Error': 'Could not create new token' });
-            }
-          })
-        } else {
-          callback(400, { 'Error': 'Password did not match the specified user\'s stored password' });
-        }
-      } else {
-        callback(400, { 'Error': 'Could not find the specified user' });
-      }
-    })
-  } else {
-    callback(400, { 'Error': 'Missing required field(s)' });
-  }
-}
-
-// tokens - GET
-// Required data: id
-// Optinal data: none
-handlers._tokens.get = (data, callback) => {
-  // Check if the email address is valid
-  const id = typeof (data.queryStringObject.id) === 'string' && data.queryStringObject.id.trim().length === 20 ? data.queryStringObject.id.trim() : false;
-  if (id) {
-    // Look up the token
-    _data.read('tokens', id, (err, tokenData) => {
-      if (!err && tokenData) {
-        callback(200, tokenData);
-      } else {
-        callback(404);
-      }
-    })
-  } else {
-    callback(400, { 'Error': 'Missing required field' });
-  }
-}
-
-// tokens - PUT
-// Required data: id, extend
-// Optional data: none
-handlers._tokens.put = (data, callback) => {
-  const id = typeof (data.payload.id) === 'string' && data.payload.id.trim().length === 20 ? data.payload.id.trim() : false;
-  const extend = typeof (data.payload.extend) === 'boolean' && data.payload.extend === true ? true : false;
-  if (id && extend) {
-    // Lookup the existing token
-    _data.read('tokens', id, (err, tokenData) => {
-      if (!err && tokenData) {
-        // Check to make sure the token isn't already expired
-        if (tokenData.expires > Date.now()) {
-          // Set the expiration an hour from now
-          tokenData.expires = Date.now() + 1000 * 60 * 60;
-          // Store the new updates
-          _data.update('tokens', id, tokenData, (err) => {
-            if (!err) {
-              callback(200);
-            } else {
-              callback(500, { 'Error': 'Could not update the token\'s expiration.' });
-            }
-          })
-        } else {
-          callback(400, { "Error": "The token has already expired, and cannot be extended." });
-        }
-      } else {
-        callback(400, { 'Error': 'Specified user does not exist.' });
-      }
-    })
-  } else {
-    callback(400, { "Error": "Missing required field(s) or field(s) are invalid." });
-  }
-}
-
-// Tokens - DELETE
-// Required data: id
-// Optional data: none
-handlers._tokens.delete = (data, callback) => {
-  // Check that id is valid
-  const id = typeof (data.queryStringObject.id) === 'string' && data.queryStringObject.id.trim().length === 20 ? data.queryStringObject.id.trim() : false;
-  if (id) {
-    // Lookup the token
-    _data.read('tokens', id, (err, tokenData) => {
-      if (!err && tokenData) {
-        // Delete the token
-        _data.delete('tokens', id, (err) => {
-          if (!err) {
-            callback(200);
-          } else {
-            callback(500, { 'Error': 'Could not delete the specified token' });
-          }
-        })
-      } else {
-        callback(400, { 'Error': 'Could not find the specified token.' });
-      }
-    })
-  } else {
-    callback(400, { 'Error': 'Missing required field' });
-  }
-}
-
-// Verify if a given token id is currently valid for a given user
-handlers._tokens.verifyToken = (id, email, callback) => {
-  // Lookup the token
-  _data.read('tokens', id, (err, tokenData) => {
-    if (!err && tokenData) {
-      // Check that the token is for the given user and has not expired
-      if (tokenData.email == email && tokenData.expires > Date.now()) {
-        callback(true);
-      } else {
-        callback(false);
-      }
-    } else {
-      callback(false);
-    }
-  })
-}
-
-// Not found handler
-handlers.notFound = (data, callback) => callback(404);
-
-// Export handlers object
-module.exports = handlers;
+// Export _users object
+module.exports = _users;
