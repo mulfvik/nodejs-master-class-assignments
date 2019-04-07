@@ -15,28 +15,22 @@ const _cart = {};
 // Required data: menuItems, token
 // Optional data: none
 _cart.post = (data, callback) => {
-
   // Validate inputs
   const menuItems = typeof (data.payload.menuItems) == 'object' && data.payload.menuItems instanceof Array && data.payload.menuItems.length > 0 ? data.payload.menuItems : false;
   if (menuItems) {
-
     // Get token from headers
     const token = typeof (data.headers.token) == 'string' ? data.headers.token : false;
-
     // Lookup the user email by reading the token
     _data.read('tokens', token, (err, tokenData) => {
       if (!err && tokenData) {
         const email = tokenData.email;
-
         // Lookup the user data
         _data.read('users', email, (err, userData) => {
           if (!err && userData) {
             const userCart = typeof (userData.cart) == 'object' && userData.cart instanceof Array ? userData.cart : [];
             if (userCart.length < 1) {
-
               // Create random id for cart
               const cartId = helpers.createRandomString(20);
-
               // Create cart object including email
               const cartObj = {
                 'id': cartId,
@@ -49,7 +43,6 @@ _cart.post = (data, callback) => {
                   // Add cart id to the user's object
                   userData.cart = userCart;
                   userData.cart.push(cartId);
-
                   // Save the new user data
                   _data.update('users', email, userData, (err) => {
                     if (!err) {
@@ -83,22 +76,17 @@ _cart.post = (data, callback) => {
 // Required data: id, token
 // Optional data: none
 _cart.get = (data, callback) => {
-
   // Check that id is valid
   const id = typeof (data.queryStringObject.id) == 'string' && data.queryStringObject.id.trim().length == 20 ? data.queryStringObject.id.trim() : false;
   if (id) {
-
     // Lookup the cart
     _data.read('carts', id, (err, cartData) => {
       if (!err && cartData) {
-
         // Get the token that sent the request
         const token = typeof (data.headers.token) == 'string' ? data.headers.token : false;
-
         // Verify that the given token is valid and belongs to the user who created the cart
         tokensHandler.verifyToken(token, cartData.email, (tokenIsValid) => {
           if (tokenIsValid) {
-
             // Return cart data
             callback(200, cartData);
           } else {
