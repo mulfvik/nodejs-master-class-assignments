@@ -6,7 +6,7 @@
 // Dependencies
 const _data = require('../lib/data');
 const helpers = require('../lib/helpers');
-const tokenHandlers = require('./tokensHandler');
+const tokensHandler = require('./tokensHandler');
 
 // Menus handler container
 const _menu = {};
@@ -21,7 +21,7 @@ _menu.get = (data, callback) => {
   if (menu && email) {
     const token = typeof (data.headers.token) === 'string' ? data.headers.token : false;
     // Verify that the given token is valid for the email address
-    tokenHandlers.verifyToken(token, email, (tokenIsValid) => {
+    tokensHandler.verifyToken(token, email, (tokenIsValid) => {
       if (tokenIsValid) {
         // Find menu
         _data.read('menus', menu, function (err, data) {

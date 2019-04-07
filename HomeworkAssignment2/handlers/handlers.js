@@ -12,7 +12,7 @@ const cartHandler = require('./cartHandler');
 // Handlers container
 const handlers = {};
 
-// User methods
+// Users methods
 handlers.users = (data, callback) => {
   const acceptableMethods = ['post', 'get', 'put', 'delete'];
   if (acceptableMethods.indexOf(data.method) > -1) {
@@ -23,7 +23,7 @@ handlers.users = (data, callback) => {
   }
 }
 
-// Token methods
+// Tokens methods
 handlers.tokens = (data, callback) => {
   const acceptableMethods = ['post', 'get', 'put', 'delete'];
   if (acceptableMethods.indexOf(data.method) > -1) {
@@ -34,7 +34,7 @@ handlers.tokens = (data, callback) => {
   }
 }
 
-// Menu methods
+// Menus methods
 handlers.menus = (data, callback) => {
   const acceptableMethods = ['get'];
   if (acceptableMethods.indexOf(data.method) > -1) {
@@ -49,15 +49,16 @@ handlers.menus = (data, callback) => {
 handlers.cart = function (data, callback) {
   var acceptableMethods = ['post', 'get', 'put', 'delete'];
   if (acceptableMethods.indexOf(data.method) > -1) {
-    handlers._checks[data.method](data, callback);
+    // Call the cart handler
+    cartHandler[data.method](data, callback);
   } else {
     callback(405);
   }
-};
+}
 
 
 // Not found handler
 handlers.notFound = (data, callback) => callback(404);
 
-// Export handlers object
+// Export all handlers
 module.exports = handlers;

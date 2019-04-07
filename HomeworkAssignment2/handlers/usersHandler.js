@@ -5,7 +5,7 @@
 // Dependencies
 const _data = require('../lib/data');
 const helpers = require('../lib/helpers');
-const tokenHandlers = require('./tokensHandler');
+const tokensHandler = require('./tokensHandler');
 
 // User handlers container
 const _users = {};
@@ -106,7 +106,7 @@ _users.get = (data, callback) => {
     // Get token from headers
     const token = typeof (data.headers.token) === 'string' ? data.headers.token : false;
     // Verify that the given token is valid for the email address
-    tokenHandlers.verifyToken(token, email, (tokenIsValid) => {
+    tokensHandler.verifyToken(token, email, (tokenIsValid) => {
       if (tokenIsValid) {
         // Lookup the user
         _data.read('users', email, (err, data) => {
@@ -168,7 +168,7 @@ _users.put = (data, callback) => {
       // Get token from headers
       const token = typeof (data.headers.token) === 'string' ? data.headers.token : false;
       // Verify that the given token is valid for the email address
-      tokenHandlers.verifyToken(token, email, (tokenIsValid) => {
+      tokensHandler.verifyToken(token, email, (tokenIsValid) => {
         if (tokenIsValid) {
           // Look up user
           _data.read('users', email, (err, userData) => {
@@ -235,7 +235,7 @@ _users.delete = (data, callback) => {
     // Get token from headers
     const token = typeof (data.headers.token) === 'string' ? data.headers.token : false;
     // Verify that the given token is valid for the email address
-    tokenHandlers.verifyToken(token, email, (tokenIsValid) => {
+    tokensHandler.verifyToken(token, email, (tokenIsValid) => {
       if (tokenIsValid) {
         // Lookup the user
         _data.read('users', email, (err, userData) => {
