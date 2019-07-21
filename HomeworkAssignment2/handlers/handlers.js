@@ -7,7 +7,7 @@ const usersHandler = require('./usersHandler');
 const tokensHandler = require('./tokensHandler');
 const menusHandler = require('./menusHandler');
 const cartHandler = require('./cartHandler');
-
+const orderHandler = require('./orderHandler');
 
 // Handlers container
 const handlers = {};
@@ -46,8 +46,8 @@ handlers.menus = (data, callback) => {
 }
 
 // Cart methods
-handlers.cart = function (data, callback) {
-  var acceptableMethods = ['post', 'get', 'put', 'delete'];
+handlers.cart = (data, callback) => {
+  const acceptableMethods = ['post', 'get', 'put', 'delete'];
   if (acceptableMethods.indexOf(data.method) > -1) {
     // Call the cart handler
     cartHandler[data.method](data, callback);
@@ -56,6 +56,16 @@ handlers.cart = function (data, callback) {
   }
 }
 
+// Order methods
+handlers.order = (data, callback) => {
+  const acceptableMethods = ['post', 'get', 'put', 'delete'];
+  if (acceptableMethods.indexOf(data.method) > -1) {
+    // Call the order handler
+    orderHandler[data.method](data, callback);
+  } else {
+    callback(405);
+  }
+}
 
 // Not found handler
 handlers.notFound = (data, callback) => callback(404);

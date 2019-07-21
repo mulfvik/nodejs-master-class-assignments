@@ -27,7 +27,7 @@
     "toppings": "Skinka (inbakad)",
     "price": "92"
   },
-  "Al tonno": {
+  "Al_tonno": {
     "toppings": "Tonfisk, lök",
     "price": "97"
   },
@@ -39,7 +39,7 @@
     "toppings": "Köttfärs",
     "price": "92"
   },
-  "Ludwig Special": {
+  "Ludwig_Special": {
     "toppings": "Ananas, paprika, lök, hackad feferoni, italiensk, salami, kyckling, köttfärs, curry, mild vitlökssås",
     "price": "113"
   }

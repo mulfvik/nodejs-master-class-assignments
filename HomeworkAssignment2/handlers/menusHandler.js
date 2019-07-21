@@ -17,14 +17,14 @@ const _menu = {};
 _menu.get = (data, callback) => {
   // Check that email address and menu are valid
   const menu = typeof (data.payload.menu) === 'string' ? data.payload.menu : false;
-  const email = helpers.validateEmail(data.queryStringObject.email) ? data.queryStringObject.email.trim() : false;
+  const email = helpers.validateEmail(data.queryStringObject.email) ? data.queryStringObject.email : false;
   if (menu && email) {
     const token = typeof (data.headers.token) === 'string' ? data.headers.token : false;
     // Verify that the given token is valid for the email address
     tokensHandler.verifyToken(token, email, (tokenIsValid) => {
       if (tokenIsValid) {
         // Find menu
-        _data.read('menus', menu, function (err, data) {
+        _data.read('menus', menu, (err, data) => {
           if (!err && data) {
             // Return menu
             callback(200, data);

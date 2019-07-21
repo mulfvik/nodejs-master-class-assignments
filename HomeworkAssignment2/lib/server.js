@@ -93,7 +93,6 @@ server.unifiedServer = (req, res) => {
   })
 }
 
-
 // Request routs
 server.router = {
   'users': handlers.users,

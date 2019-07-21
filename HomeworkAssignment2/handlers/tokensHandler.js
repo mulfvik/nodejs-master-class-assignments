@@ -1,20 +1,40 @@
 /**
- * Token handlers
+ * Tokens handler
  * 
  */
 
 // Dependencies
 const _data = require('../lib/data');
 const helpers = require('../lib/helpers');
-
-// Token handlers container
+// Tokens handler container
 _tokens = {};
 
-// tokens - POST
-// Required data: email, password
-// Optional data: none
+
+/**
+ * @apiVersion 1.0.0
+ * @apiName CreateToken
+ * @apiGroup Tokens
+ * @api {post} /tokens Create token
+ * @apiParam email Required
+ * @apiParam password Required
+ * @apiParamExample {json} Request body example
+ *     {
+ *       "email": "john.doe@email.com",
+ *       "password": "password"
+ *     }
+ * @apiSuccessExample Success
+ *     200 OK
+ * @apiSuccessExample Response body example
+ *     {
+ *       "email": "john.doe@email.com",
+ *       "id": "gid1btk4b0qg3wyqyivg",
+ *       "expires": 1554639663830
+ *     }
+ *
+ */
+
 _tokens.post = (data, callback) => {
-  const email = helpers.validateEmail(data.payload.email) ? data.payload.email.trim() : false;
+  const email = helpers.validateEmail(data.payload.email) ? data.payload.email : false;
   const password = typeof (data.payload.password) === 'string' && data.payload.password.trim().length > 0 ? data.payload.password.trim() : false;
   if (email && password) {
     // Look up the user who matches that email address
@@ -51,9 +71,25 @@ _tokens.post = (data, callback) => {
   }
 }
 
-// tokens - GET
-// Required data: id
-// Optinal data: none
+
+/**
+ * @apiVersion 1.0.0
+ * @apiName GetToken
+ * @apiGroup Tokens
+ * @api {get} /tokens?id Get token
+ * @apiParamExample Request example:
+ *     /tokens?id=1234567890
+ * @apiSuccessExample Success
+ *     200 OK
+ * @apiSuccessExample Response body example
+ *     {
+ *       "email": "john.doe@email.com",
+ *       "id": "gid1btk4b0qg3wyqyivg",
+ *       "expires": 1554639663830
+ *     }
+ * 
+ */
+
 _tokens.get = (data, callback) => {
   // Check if the id is valid
   const id = typeof (data.queryStringObject.id) === 'string' && data.queryStringObject.id.trim().length === 20 ? data.queryStringObject.id.trim() : false;
@@ -71,9 +107,25 @@ _tokens.get = (data, callback) => {
   }
 }
 
-// tokens - PUT
-// Required data: id, extend
-// Optional data: none
+/**
+ * @apiVersion 1.0.0
+ * @apiName UpdateToken
+ * @apiGroup Tokens
+ * @api {put} /tokens Update token
+ * @apiParam id Required
+ * @apiParam {boolean} extend Required
+ * @apiParamExample {json} Request body example
+ *     {
+ *       "id": "gid1btk4b0qg3wyqyivg",
+ *       "extend": true
+ *     }
+ * @apiSuccessExample Success
+ *     200 OK
+ * @apiSuccessExample Success body
+ *     {}
+ * 
+ */
+
 _tokens.put = (data, callback) => {
   const id = typeof (data.payload.id) === 'string' && data.payload.id.trim().length === 20 ? data.payload.id.trim() : false;
   const extend = typeof (data.payload.extend) === 'boolean' && data.payload.extend === true ? true : false;
@@ -105,9 +157,20 @@ _tokens.put = (data, callback) => {
   }
 }
 
-// Tokens - DELETE
-// Required data: id
-// Optional data: none
+/**
+ * @apiVersion 1.0.0
+ * @apiName DeleteToken
+ * @apiGroup Tokens
+ * @api {delete} /tokens?id Delete token
+ * @apiParamExample Request example
+ *     /tokens?id=gid1btk4b0qg3wyqyivg
+ * @apiSuccessExample Success
+ *     200 OK
+ * @apiSuccessExample Response body example
+ *     {}
+ *
+ */
+
 _tokens.delete = (data, callback) => {
   // Check that id is valid
   const id = typeof (data.queryStringObject.id) === 'string' && data.queryStringObject.id.trim().length === 20 ? data.queryStringObject.id.trim() : false;

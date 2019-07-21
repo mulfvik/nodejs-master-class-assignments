@@ -57,7 +57,7 @@ _cart.post = (data, callback) => {
                 }
               })
             } else {
-              callback(403, { 'Error': 'Could not create new cart when cart already is in process, delete or continue with current cart' });
+              callback(403, { 'Error': 'Delete or continue with current cart' });
             }
           } else {
             callback(403);
@@ -110,7 +110,7 @@ _cart.put = (data, callback) => {
   const menuItems = typeof (data.payload.menuItems) == 'object' && data.payload.menuItems instanceof Array && data.payload.menuItems.length > 0 ? data.payload.menuItems : false;
   // Check to ensure id is valid
   if (id) {
-    // Check to make sure that one or more optinal fields has been sent
+    // Check to make sure that one or more optional fields has been sent
     if (menuItems) {
       // Lookup the cart
       _data.read('carts', id, (err, cartData) => {
@@ -120,7 +120,7 @@ _cart.put = (data, callback) => {
           // Verify that the given token is valid and belongs to the user who created the cart
           tokensHandler.verifyToken(token, cartData.email, (tokenIsValid) => {
             if (tokenIsValid) {
-              // Update the cart
+              // Update the cart with new cart
               if (menuItems) {
                 cartData.menuItems = menuItems;
               }

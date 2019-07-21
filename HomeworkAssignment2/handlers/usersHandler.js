@@ -1,34 +1,38 @@
 /**
- * Users handlers
+ * Users handler
+ * 
  */
 
 // Dependencies
 const _data = require('../lib/data');
 const helpers = require('../lib/helpers');
 const tokensHandler = require('./tokensHandler');
-
 // User handlers container
 const _users = {};
 
 /**
+ * @apiVersion 1.0.0
  * @apiName CreateUser
  * @apiGroup Users
  * @api {post} /users Create user
- * @apiParamExample {json} Request example:
+ * @apiParam name Required
+ * @apiParam streetAdress Required
+ * @apiParam email Required
+ * @apiParam password Required
+ * @apiParamExample {json} Request body example
  *     {
  *       "name": "John Doe",
  *       "streetAddress": "Street 7",
  *       "email": "john.doe@email.com",
  *       "password": "password"
  *     }
- * @apiSuccessExample Success response:
+ * @apiSuccessExample Success
  *     200 OK
+ * @apiSuccessExample Response body example
  *     {}
+ * 
  */
 
-// Users - POST
-// Required data: name, streetAddress, email, password
-// Optional data: none
 _users.post = (data, callback) => {
   // Check that all required fields are filled out
   const name = typeof (data.payload.name) === 'string' && data.payload.name.trim().length > 0 ? data.payload.name.trim() : false;
@@ -74,34 +78,32 @@ _users.post = (data, callback) => {
 }
 
 /**
+ * @apiVersion 1.0.0
  * @apiName GetUser
  * @apiGroup Users
- * @api {get} /users?email Get user information
+ * @api {get} /users?email Get user
  * @apiHeader token Active token required
- * @apiHeaderExample Header example:
+ * @apiHeaderExample Header example
  *     {
- *       "token": gid1btk4b0qg3wyqyivg
+ *       token: gid1btk4b0qg3wyqyivg
  *     }
- * 
- * @apiParam {String} email Users unique ID
- * @apiParamExample Request example:
- *     email=john.doe@email.com
- * 
- * @apiSuccessExample Success response:
+ * @apiParam email Required
+ * @apiParamExample Request example
+ *     /users?email=john.doe@email.com
+ * @apiSuccessExample Success
  *     200 OK
+ * @apiSuccessExample Response body example
  *     {
  *       "name": "John Doe",
  *       "streetAddress": "Street 7",
  *       "email": "john.doe@email.com"
  *     }
+ * 
  */
 
-// Users - GET
-// Required data: email, token
-// Optional data: none
 _users.get = (data, callback) => {
   // Check that email address is valid
-  const email = helpers.validateEmail(data.queryStringObject.email) ? data.queryStringObject.email.trim() : false;
+  const email = helpers.validateEmail(data.queryStringObject.email) ? data.queryStringObject.email : false;
   if (email) {
     // Get token from headers
     const token = typeof (data.headers.token) === 'string' ? data.headers.token : false;
@@ -128,32 +130,30 @@ _users.get = (data, callback) => {
 }
 
 /**
+ * @apiVersion 1.0.0
  * @apiName UpdateUser
  * @apiGroup Users
- * @api {put} /users Update user information
+ * @api {put} /users Update user
  * @apiHeader token Active token required
- * @apiHeaderExample Header example:
+ * @apiHeaderExample Header example
  *     {
- *       "token": gid1btk4b0qg3wyqyivg
+ *       token: gid1btk4b0qg3wyqyivg
  *     }
- * 
- * @apiParam {String} email Required
- * @apiParamExample {json} Request example (at least one must be specified):
+ * @apiParam email Required
+ * @apiParam name Optional
+ * @apiParam streetAdress Optional
+ * @apiParam password Optional
+ * @apiParamExample {json} Request body example (at least one optional must be specified)
  *     {
- *       "name": "John Dolittle",
- *       "streetAddress": "Road 7",
  *       "email": "john.doe@email.com",
- *       "password": "secret"
+ *       "name": "new name",
+ *       "streetAddress": "new street adress",
+ *       "password": "new password"
  *     }
- * 
- * @apiSuccessExample Success response:
+ * @apiSuccessExample Success
  *     200 OK
- *     {}
  */
 
-// Users - PUT
-// Required data: email
-// Optional data: name, streetAddress, password (at least one must be specified)
 _users.put = (data, callback) => {
   // Check for the required field
   const email = helpers.validateEmail(data.payload.email) ? data.payload.email.trim() : false;
@@ -208,29 +208,29 @@ _users.put = (data, callback) => {
 }
 
 /**
+ * @apiVersion 1.0.0
  * @apiName DeleteUser
  * @apiGroup Users
  * @api {delete} /users?email Delete user
  * @apiHeader token Active token required
- * @apiHeaderExample Header example:
+ * @apiHeaderExample Header example
  *     {
- *       "token": gid1btk4b0qg3wyqyivg
+ *       token: gid1btk4b0qg3wyqyivg
  *     }
  * 
- * @apiParam {String} email Users unique ID.
- * @apiParamExample Request example:
- *     email=john.doe@email.com
- * 
- * @apiSuccessExample Success response:
+ * @apiParam email Users unique ID.
+ * @apiParamExample Request example
+ *     /users?email=john.doe@email.com
+ * @apiSuccessExample Success
  *     200 OK
+ * @apiSuccessExample Response body example
  *     {}
+ *
  */
 
-// Users - DELETE
-// Required data: email
 _users.delete = (data, callback) => {
   // Check that email address is valid
-  const email = helpers.validateEmail(data.queryStringObject.email) ? data.queryStringObject.email.trim() : false;
+  const email = helpers.validateEmail(data.queryStringObject.email) ? data.queryStringObject.email : false;
   if (email) {
     // Get token from headers
     const token = typeof (data.headers.token) === 'string' ? data.headers.token : false;
