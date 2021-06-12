@@ -21,7 +21,7 @@ handlers.users = (data, callback) => {
   } else {
     callback(405);
   }
-}
+};
 
 // Tokens methods
 handlers.tokens = (data, callback) => {
@@ -32,7 +32,7 @@ handlers.tokens = (data, callback) => {
   } else {
     callback(405);
   }
-}
+};
 
 // Menus methods
 handlers.menus = (data, callback) => {
@@ -43,7 +43,7 @@ handlers.menus = (data, callback) => {
   } else {
     callback(405);
   }
-}
+};
 
 // Cart methods
 handlers.cart = (data, callback) => {
@@ -54,7 +54,7 @@ handlers.cart = (data, callback) => {
   } else {
     callback(405);
   }
-}
+};
 
 // Order methods
 handlers.order = (data, callback) => {
@@ -65,7 +65,7 @@ handlers.order = (data, callback) => {
   } else {
     callback(405);
   }
-}
+};
 
 // Not found handler
 handlers.notFound = (data, callback) => callback(404);

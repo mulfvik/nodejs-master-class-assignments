@@ -36,7 +36,7 @@ _cart.post = (data, callback) => {
                 'id': cartId,
                 'email': email,
                 'menuItems': menuItems
-              }
+              };
               // Save the object
               _data.create('carts', cartId, cartObj, (err) => {
                 if (!err) {
@@ -51,26 +51,26 @@ _cart.post = (data, callback) => {
                     } else {
                       callback(500, { 'Error': 'Could not update the user with the new cart.' });
                     }
-                  })
+                  });
                 } else {
                   callback(500, { 'Error': 'Could not create the new cart' });
                 }
-              })
+              });
             } else {
               callback(403, { 'Error': 'Delete or continue with current cart' });
             }
           } else {
             callback(403);
           }
-        })
+        });
       } else {
         callback(403);
       }
-    })
+    });
   } else {
     callback(400, { 'Error': 'Missing required inputs, or inputs are invalid' });
   }
-}
+};
 
 // cart - GET
 // Required data: id, token
@@ -92,15 +92,15 @@ _cart.get = (data, callback) => {
           } else {
             callback(403);
           }
-        })
+        });
       } else {
         callback(404);
       }
-    })
+    });
   } else {
     callback(400, { 'Error': 'Missing required field, or field is invalid' });
   }
-}
+};
 
 // cart - PUT
 // Required data: id, token, menuItems
@@ -131,22 +131,22 @@ _cart.put = (data, callback) => {
                 } else {
                   callback(500, { 'Error': 'Could not update the cart' });
                 }
-              })
+              });
             } else {
               callback(403);
             }
-          })
+          });
         } else {
           callback(400, { 'Error': 'Cart id did not exist' });
         }
-      })
+      });
     } else {
       callback(400, { 'Error': 'Missing field to update' });
     }
   } else {
     callback(400, { 'Error': 'Missing required field' });
   }
-}
+};
 
 // cart - DELETE
 // Required data: id
@@ -182,30 +182,30 @@ _cart.delete = (data, callback) => {
                         } else {
                           callback(500, { 'Error': 'Could not update the user.' });
                         }
-                      })
+                      });
                     } else {
                       callback(500, { "Error": "Could not find the cart on the user's object, so could not remove it." });
                     }
                   } else {
                     callback(500, { "Error": "Could not find the user who created the cart, so could not remove the cart on their user object." });
                   }
-                })
+                });
               } else {
                 callback(500, { "Error": "Could not delete the cart data." });
               }
-            })
+            });
           } else {
             callback(403);
           }
-        })
+        });
       } else {
         callback(400, { "Error": "The cart ID specified could not be found" });
       }
-    })
+    });
   } else {
     callback(400, { "Error": "Missing valid id" });
   }
-}
+};
 
 // Export the _cart object
 module.exports = _cart;

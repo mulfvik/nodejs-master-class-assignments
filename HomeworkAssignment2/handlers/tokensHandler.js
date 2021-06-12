@@ -54,22 +54,22 @@ _tokens.post = (data, callback) => {
           // Store the token
           _data.create('tokens', tokenId, tokenObject, (err) => {
             if (!err) {
-              callback(200, tokenObject)
+              callback(200, tokenObject);
             } else {
               callback(500, { 'Error': 'Could not create new token' });
             }
-          })
+          });
         } else {
           callback(400, { 'Error': 'Password did not match the specified users stored password' });
         }
       } else {
         callback(400, { 'Error': 'Could not find the specified user' });
       }
-    })
+    });
   } else {
     callback(400, { 'Error': 'Missing required field(s)' });
   }
-}
+};
 
 
 /**
@@ -101,11 +101,11 @@ _tokens.get = (data, callback) => {
       } else {
         callback(404);
       }
-    })
+    });
   } else {
     callback(400, { 'Error': 'Missing required field' });
   }
-}
+};
 
 /**
  * @apiVersion 1.0.0
@@ -144,18 +144,18 @@ _tokens.put = (data, callback) => {
             } else {
               callback(500, { 'Error': 'Could not update the token\'s expiration.' });
             }
-          })
+          });
         } else {
           callback(400, { "Error": "The token has already expired, and cannot be extended." });
         }
       } else {
         callback(400, { 'Error': 'Specified user does not exist.' });
       }
-    })
+    });
   } else {
     callback(400, { "Error": "Missing required field(s) or field(s) are invalid." });
   }
-}
+};
 
 /**
  * @apiVersion 1.0.0
@@ -185,15 +185,15 @@ _tokens.delete = (data, callback) => {
           } else {
             callback(500, { 'Error': 'Could not delete the specified token' });
           }
-        })
+        });
       } else {
         callback(400, { 'Error': 'Could not find the specified token.' });
       }
-    })
+    });
   } else {
     callback(400, { 'Error': 'Missing required field' });
   }
-}
+};
 
 // Verify if a given token id is currently valid for a given user
 _tokens.verifyToken = (id, email, callback) => {
@@ -209,8 +209,8 @@ _tokens.verifyToken = (id, email, callback) => {
     } else {
       callback(false);
     }
-  })
-}
+  });
+};
 
 // Export _tokens object
 module.exports = _tokens;

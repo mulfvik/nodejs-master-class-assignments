@@ -49,11 +49,11 @@ _users.post = (data, callback) => {
           // Creating the user object
           if (hashedPassword) {
             const userObject = {
-              'name': name,
-              'streetAddress': streetAddress,
-              'email': email,
-              'hashedPassword': hashedPassword
-            }
+              name,
+              streetAddress,
+              email,
+              hashedPassword
+            };
             // Storing the user
             _data.create('users', email, userObject, (err) => {
               if (!err) {
@@ -61,21 +61,21 @@ _users.post = (data, callback) => {
               } else {
                 callback(500, { 'Error': 'Could not create the new user' });
               }
-            })
+            });
           } else {
             callback(500, { 'Error': 'Could not hash the user\'s password.' });
           }
         } else {
           callback(400, { 'Error': 'A user with that email address already exists' });
         }
-      })
+      });
     } else {
       callback(400, { 'Error': 'Missing required fields' });
     }
   } else {
-    callback(400, { 'Error': 'Email address is not valid' })
+    callback(400, { 'Error': 'Email address is not valid' });
   }
-}
+};
 
 /**
  * @apiVersion 1.0.0
@@ -119,15 +119,15 @@ _users.get = (data, callback) => {
           } else {
             callback(404);
           }
-        })
+        });
       } else {
         callback(403, { "Error": "Missing required token in header, or token is invalid." });
       }
-    })
+    });
   } else {
     callback(400, { 'Error': 'Missing required field' });
   }
-}
+};
 
 /**
  * @apiVersion 1.0.0
@@ -190,22 +190,22 @@ _users.put = (data, callback) => {
                 } else {
                   callback(500, { 'Error': 'Could not update the user' });
                 }
-              })
+              });
             } else {
               callback(400, { 'Error': 'The specified user does not exist' });
             }
-          })
+          });
         } else {
           callback(403, { "Error": "Missing required token in header, or token is invalid." });
         }
-      })
+      });
     } else {
       callback(400, { 'Error': 'Missing fields to update' });
     }
   } else {
     callback(400, { 'Error': 'Missing required field' });
   }
-}
+};
 
 /**
  * @apiVersion 1.0.0
@@ -247,19 +247,19 @@ _users.delete = (data, callback) => {
               } else {
                 callback(500, { 'Error': 'Could not delete the specified user' });
               }
-            })
+            });
           } else {
             callback(400, { 'Error': 'Could not find the specified user.' });
           }
-        })
+        });
       } else {
         callback(403, { "Error": "Missing required token in header, or token is invalid." });
       }
-    })
+    });
   } else {
     callback(400, { 'Error': 'Missing required field' });
   }
-}
+};
 
 // Export _users object
 module.exports = _users;

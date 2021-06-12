@@ -19,7 +19,7 @@ environments.staging = {
     'domain': '',
     'from': 'Pizza delivery <mailgun@sandboxc9f9cd3e2c5148d8afe23b39e3a1f13a.mailgun.org>'
   }
-}
+};
 
 // Production environment
 environments.production = {
@@ -35,7 +35,7 @@ environments.production = {
     'domain': '',
     'from': ''
   }
-}
+};
 
 // Check which enviroment is passed from command-line argument
 const currentEnvironment = typeof (process.env.NODE_ENV) === 'string' ? process.env.NODE_ENV.toLowerCase() : '';

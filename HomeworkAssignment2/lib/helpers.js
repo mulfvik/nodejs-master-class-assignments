@@ -6,7 +6,7 @@
 const crypto = require('crypto');
 const https = require('https');
 const config = require('./config');
-const querystring = require('querystring')
+const querystring = require('querystring');
 
 // Helpers container
 const helpers = {};
@@ -19,7 +19,7 @@ helpers.hash = str => {
   } else {
     return false;
   }
-}
+};
 
 // Parse a json string to an object in all cases without throwing
 helpers.parseJsonToObject = str => {
@@ -29,7 +29,7 @@ helpers.parseJsonToObject = str => {
   } catch (e) {
     return {};
   }
-}
+};
 
 // Create a string of random alphanumeric characters of a given length
 helpers.createRandomString = strLength => {
@@ -53,7 +53,7 @@ helpers.createRandomString = strLength => {
   } else {
     return false;
   }
-}
+};
 
 // Check if email is valid
 helpers.validateEmail = email => {
@@ -63,7 +63,7 @@ helpers.validateEmail = email => {
   } else {
     return false;
   }
-}
+};
 
 // Get paid with Stripe
 helpers.stripePayment = (amount, currency, source, description, callback) => {
@@ -80,7 +80,7 @@ helpers.stripePayment = (amount, currency, source, description, callback) => {
       'currency': currency,
       'source': source,
       'description': description
-    }
+    };
 
     // Stringify the payload with querystring
     const stringPayload = querystring.stringify(payload);
@@ -97,7 +97,7 @@ helpers.stripePayment = (amount, currency, source, description, callback) => {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Content-Length': Buffer.byteLength(stringPayload)
       }
-    }
+    };
 
     // Instantiate the request object
     const req = https.request(requestDetails, (res) => {
@@ -111,16 +111,16 @@ helpers.stripePayment = (amount, currency, source, description, callback) => {
           const resObject = JSON.parse(data);
           callback(resObject.amount + ' ' + resObject.currency);
           //callback(false);
-        })
+        });
       } else {
         callback('Status code returned was ' + status);
       }
-    })
+    });
 
     // Bind to the error event so it doesnt get thrown
     req.on('error', (e) => {
       callback(e);
-    })
+    });
 
     // Add the payload
     req.write(stringPayload);
@@ -131,7 +131,7 @@ helpers.stripePayment = (amount, currency, source, description, callback) => {
   } else {
     callback('Given parameters were missing or invalid');
   }
-}
+};
 
 // Send email with mailgun
 helpers.mailgun = (to, subject, text, callback) => {
@@ -147,7 +147,7 @@ helpers.mailgun = (to, subject, text, callback) => {
       "to": to,
       "subject": subject,
       "text": text
-    }
+    };
 
     // Stringify the payload with querystring
     const stringPayload = querystring.stringify(payload);
@@ -163,7 +163,7 @@ helpers.mailgun = (to, subject, text, callback) => {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Content-Length': Buffer.byteLength(stringPayload)
       }
-    }
+    };
 
     // Instantiate the request object
     const req = https.request(requestDetails, (res) => {
@@ -175,12 +175,12 @@ helpers.mailgun = (to, subject, text, callback) => {
       } else {
         callback('Status code returned was ' + status);
       }
-    })
+    });
 
     // Bind to the error event so it doesnt get thrown
     req.on('error', (e) => {
       callback(e);
-    })
+    });
 
     // Add the payload
     req.write(stringPayload);
@@ -191,7 +191,7 @@ helpers.mailgun = (to, subject, text, callback) => {
   } else {
     callback('Given parameters were missing or invalid');
   }
-}
+};
 
 // Export helpers object
 module.exports = helpers;

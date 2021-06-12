@@ -31,15 +31,15 @@ _menu.get = (data, callback) => {
           } else {
             callback(400, { 'Error': 'Could not get the menu' });
           }
-        })
+        });
       } else {
         callback(403, { "Error": "Missing required token in header, or token is invalid." });
       }
-    })
+    });
   } else {
     callback(400, { 'Error': 'Missing required fields' });
   }
-}
+};
 
 // Export _menus object
 module.exports = _menu;

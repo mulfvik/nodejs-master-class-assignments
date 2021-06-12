@@ -31,16 +31,16 @@ lib.create = (dir, file, data, callback) => {
             } else {
               callback('Error closing the file');
             }
-          })
+          });
         } else {
           callback('Error writing to file');
         }
-      })
+      });
     } else {
       callback('Could not create new file, it may already exist');
     }
-  })
-}
+  });
+};
 
 // Read data from file
 lib.read = (dir, file, callback) => {
@@ -51,8 +51,8 @@ lib.read = (dir, file, callback) => {
     } else {
       callback(err, data);
     }
-  })
-}
+  });
+};
 
 // Update data in file
 lib.update = (dir, file, data, callback) => {
@@ -77,20 +77,20 @@ lib.update = (dir, file, data, callback) => {
                 } else {
                   callback('Error closing the file');
                 }
-              })
+              });
             } else {
               callback('Error writing to existing file');
             }
-          })
+          });
         } else {
           callback('Error truncating the file');
         }
-      })
+      });
     } else {
       callback('Could not update file, it may not exist yet');
     }
-  })
-}
+  });
+};
 
 // Deleting file
 lib.delete = (dir, file, callback) => {
@@ -102,8 +102,8 @@ lib.delete = (dir, file, callback) => {
     } else {
       callback('Error deleting the file');
     }
-  })
-}
+  });
+};
 
 // Export lib object
 module.exports = lib;

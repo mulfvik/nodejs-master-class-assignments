@@ -64,7 +64,7 @@ server.unifiedServer = (req, res) => {
       'method': method,
       'headers': headers,
       'payload': helpers.parseJsonToObject(buffer)
-    }
+    };
 
     // Route the request to the handler specified in the router
     chosenHandler(data, (statusCode, payload) => {
@@ -89,9 +89,9 @@ server.unifiedServer = (req, res) => {
       } else {
         console.log('\x1b[31m%s\x1b[0m', method.toUpperCase() + ' /' + trimmedPath + ' ' + statusCode);
       }
-    })
-  })
-}
+    });
+  });
+};
 
 // Request routs
 server.router = {
@@ -99,7 +99,7 @@ server.router = {
   'tokens': handlers.tokens,
   'menus': handlers.menus,
   'cart': handlers.cart
-}
+};
 
 // Initialize the servers
 server.init = () => {
@@ -107,13 +107,13 @@ server.init = () => {
   // Start the HTTP server
   server.httpServer.listen(config.httpPort, () => {
     console.log('\x1b[36m%s\x1b[0m', 'The HTTP server is running on port ' + config.httpPort);
-  })
+  });
 
   // Start the HTTPS server
   server.httpsServer.listen(config.httpsPort, () => {
     console.log('\x1b[35m%s\x1b[0m', 'The HTTPS server is running on port ' + config.httpsPort);
-  })
-}
+  });
+};
 
 // Export server object
 module.exports = server;
