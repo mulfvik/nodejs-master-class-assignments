@@ -31,7 +31,7 @@ app.init = () => {
 
   // Start the server
   server.init();
-}
+};
 
 // Execute app
 app.init();

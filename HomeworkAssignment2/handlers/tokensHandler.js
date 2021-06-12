@@ -45,7 +45,7 @@ _tokens.post = (data, callback) => {
         if (hashedPassword === userData.hashedPassword) {
           // If valid create new token with random name. Set expiration date 1 hour in future
           const tokenId = helpers.createRandomString(20);
-          const expires = Date.now() + 1000 * 60 * 60;
+          const expires = Date.now() + 100000 * 60 * 60;
           const tokenObject = {
             'email': email,
             'id': tokenId,

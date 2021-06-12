@@ -6,6 +6,7 @@
 const usersHandler = require('./usersHandler');
 const tokensHandler = require('./tokensHandler');
 const menusHandler = require('./menusHandler');
+const menuItemsHandler = require('./menuItemsHandler');
 const cartHandler = require('./cartHandler');
 const orderHandler = require('./orderHandler');
 
@@ -40,6 +41,17 @@ handlers.menus = (data, callback) => {
   if (acceptableMethods.indexOf(data.method) > -1) {
     // Call the menus handler
     menusHandler[data.method](data, callback);
+  } else {
+    callback(405);
+  }
+};
+
+// Menu items methods
+handlers.menuItems = (data, callback) => {
+  const acceptableMethods = ['get'];
+  if (acceptableMethods.indexOf(data.method) > -1) {
+    // Call the menuItems handler
+    menuItemsHandler[data.method](data, callback);
   } else {
     callback(405);
   }

@@ -98,6 +98,7 @@ server.router = {
   'users': handlers.users,
   'tokens': handlers.tokens,
   'menus': handlers.menus,
+  'menuItems': handlers.menuItems,
   'cart': handlers.cart
 };
 

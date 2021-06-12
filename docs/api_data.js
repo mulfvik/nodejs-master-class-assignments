@@ -1,6 +1,88 @@
 define({ "api": [
   {
     "version": "1.0.0",
+    "name": "GetMenu",
+    "group": "Menu",
+    "type": "get",
+    "url": "/menus",
+    "title": "Get menu",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "menu",
+            "description": "<p>Required</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request body example",
+          "content": "{\n  \"menu\": \"pizza\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./handlers/menusHandler.js",
+    "groupTitle": "Menu"
+  },
+  {
+    "version": "1.0.0",
+    "name": "GetMenuItem",
+    "group": "Menu",
+    "type": "get",
+    "url": "/menus",
+    "title": "Get menu item",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Required</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "menu",
+            "description": "<p>Required</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request body example",
+          "content": "{\n  \"menu\": \"pizza\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./handlers/menuItemsHandler.js",
+    "groupTitle": "Menu"
+  },
+  {
+    "version": "1.0.0",
     "name": "CreateToken",
     "group": "Tokens",
     "type": "post",

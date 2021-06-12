@@ -1,46 +1,68 @@
-{
-  "Margarita": {
+[
+  {
+    "id": 1,
+    "name": "Margarita",
     "toppings": "",
     "price": "92"
   },
-  "Fungi": {
+  {
+    "id": 2,
+    "name": "Fungi",
     "toppings": "Färska champinjoner",
     "price": "92"
   },
-  "Vesuvio": {
+  {
+    "id": 3,
+    "name": "Vesuvio",
     "toppings": "Skinka",
     "price": "92"
   },
-  "Capricciosa": {
+  {
+    "id": 4,
+    "name": "Capricciosa",
     "toppings": "Skinka, färska champinjoner",
     "price": "92"
   },
-  "Hawaii": {
+  {
+    "id": 5,
+    "name": "Hawaii",
     "toppings": "Skinka, ananas",
     "price": "92"
   },
-  "Bosola": {
+  {
+    "id": 6,
+    "name": "Bosola",
     "toppings": "Skinka, räkor",
     "price": "97"
   },
-  "Calzone": {
+  {
+    "id": 7,
+    "name": "Calzone",
     "toppings": "Skinka (inbakad)",
     "price": "92"
   },
-  "Al_tonno": {
+  {
+    "id": 8,
+    "name": "Al_tonno",
     "toppings": "Tonfisk, lök",
     "price": "97"
   },
-  "Campagnola": {
+  {
+    "id": 9,
+    "name": "Campagnola",
     "toppings": "Italiensk salami, lök",
     "price": "97"
   },
-  "Bolognese": {
+  {
+    "id": 10,
+    "name": "Bolognese",
     "toppings": "Köttfärs",
     "price": "92"
   },
-  "Ludwig_Special": {
+  {
+    "id": 11,
+    "name": "Ludwig_Special",
     "toppings": "Ananas, paprika, lök, hackad feferoni, italiensk, salami, kyckling, köttfärs, curry, mild vitlökssås",
     "price": "113"
   }
-}
+]
