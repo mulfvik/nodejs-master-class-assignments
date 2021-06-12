@@ -3,5 +3,4 @@ This repo holds assignments from this class ["The Node.js Master Class"](https:/
 ## Copyright
 The project is licensed under the MIT license. It is specified in the [license file](LICENSE.txt).
 ## Documentation
-npm install -g apidoc
-npx apidoc -o docs/
+["API Documentation"](https://mulfvik.github.io/nodejs-master-class-assignments/)
