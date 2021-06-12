@@ -42,7 +42,7 @@
     "name": "GetMenuItem",
     "group": "Menu",
     "type": "get",
-    "url": "/menus",
+    "url": "/menuItem?id",
     "title": "Get menu item",
     "parameter": {
       "fields": {
@@ -62,6 +62,11 @@
         ]
       },
       "examples": [
+        {
+          "title": "Request query example:",
+          "content": "/menuItem?id=3",
+          "type": "json"
+        },
         {
           "title": "Request body example",
           "content": "{\n  \"menu\": \"pizza\"\n}",

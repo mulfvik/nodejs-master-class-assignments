@@ -14,10 +14,11 @@ _menuItems = {};
  * @apiVersion 1.0.0
  * @apiName GetMenuItem
  * @apiGroup Menu
- * @api {get} /menus Get menu item
+ * @api {get} /menuItem?id Get menu item
  * @apiParam id Required
  * @apiParam menu Required
-
+   @apiParamExample Request query example:
+ *     /menuItem?id=3
  * @apiParamExample {json} Request body example
  *     {
  *       "menu": "pizza"
