@@ -84,9 +84,7 @@ _users.post = (data, callback) => {
  * @api {get} /users?email Get user
  * @apiHeader token Active token required
  * @apiHeaderExample Header example
- *     {
- *       token: gid1btk4b0qg3wyqyivg
- *     }
+ *     token: gid1btk4b0qg3wyqyivg
  * @apiParam email Required
  * @apiParamExample Request example
  *     /users?email=john.doe@email.com
@@ -136,9 +134,7 @@ _users.get = (data, callback) => {
  * @api {put} /users Update user
  * @apiHeader token Active token required
  * @apiHeaderExample Header example
- *     {
- *       token: gid1btk4b0qg3wyqyivg
- *     }
+ *     token: gid1btk4b0qg3wyqyivg
  * @apiParam email Required
  * @apiParam name Optional
  * @apiParam streetAdress Optional
@@ -214,10 +210,7 @@ _users.put = (data, callback) => {
  * @api {delete} /users?email Delete user
  * @apiHeader token Active token required
  * @apiHeaderExample Header example
- *     {
- *       token: gid1btk4b0qg3wyqyivg
- *     }
- * 
+ *     token: gid1btk4b0qg3wyqyivg
  * @apiParam email Users unique ID.
  * @apiParamExample Request example
  *     /users?email=john.doe@email.com

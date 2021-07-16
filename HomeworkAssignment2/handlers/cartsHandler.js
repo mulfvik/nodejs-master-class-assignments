@@ -9,12 +9,57 @@ const helpers = require('../lib/helpers');
 const tokensHandler = require('./tokensHandler');
 
 // Cart handlers container
-const _cart = {};
+const _carts = {};
 
-// Cart - POST
-// Required data: menuItems, token
-// Optional data: none
-_cart.post = (data, callback) => {
+/**
+ * @apiVersion 1.0.0
+ * @apiName CreateCart
+ * @apiGroup Carts
+ * @api {post} /carts Create cart
+ * @apiParam menuItems Required
+ * @apiHeader token Active token required
+ * @apiHeaderExample Header example
+ *     token: gid1btk4b0qg3wyqyivg
+ * @apiParamExample {json} Request body example
+ * {
+ *     "menuItems": [
+ *         {
+ *             "id": 1,
+ *             "name": "Margarita",
+ *             "price": 92
+ *         },
+ *         {
+ *             "id": 2,
+ *             "name": "Calzone",
+ *             "price": 109
+ *         }
+ *     ]
+ * }
+ * @apiSuccessExample Success
+ *     200 OK
+ * @apiSuccessExample Response body example
+ * {
+ *     "id": "ui04nlivf96zbajkvaxz",
+ *     "email": "john.doe@email.com",
+ *     "menuItems": [
+ *         {
+ *             "id": 1,
+ *             "name": "Margarita",
+ *             "toppings": "",
+ *             "price": 92
+ *         },
+ *         {
+ *             "id": 2,
+ *             "name": "Calzone",
+ *             "toppings": "Ham",
+ *             "price": 109
+ *         }
+ *     ]
+ * }
+ * 
+ */
+
+_carts.post = (data, callback) => {
   // Validate inputs
   const menuItems = typeof (data.payload.menuItems) == 'object' && data.payload.menuItems instanceof Array && data.payload.menuItems.length > 0 ? data.payload.menuItems : false;
   if (menuItems) {
@@ -72,10 +117,42 @@ _cart.post = (data, callback) => {
   }
 };
 
-// cart - GET
-// Required data: id, token
-// Optional data: none
-_cart.get = (data, callback) => {
+/**
+ * @apiVersion 1.0.0
+ * @apiName GetCart
+ * @apiGroup Carts
+ * @api {get} /carts Get cart
+ * @apiParam cartId Required
+ * @apiHeader token Active token required
+ * @apiHeaderExample Header example
+ *     token: gid1btk4b0qg3wyqyivg
+ * @apiParamExample Request example
+ *     /carts?id=uiszdaz19pch42yfqktk
+ * @apiSuccessExample Success
+ *     200 OK
+ * @apiSuccessExample Response body example
+ * {
+ *     "id": "uiszdaz19pch42yfqktk",
+ *     "email": "john.doe@email.com",
+ *     "menuItems": [
+ *         {
+ *             "id": 1,
+ *             "name": "Margarita",
+ *             "toppings": "",
+ *             "price": 92
+ *         },
+ *         {
+ *             "id": 1,
+ *             "name": "Margarita",
+ *             "toppings": "",
+ *             "price": 109
+ *         }
+ *     ]
+ * }
+ * 
+ */
+
+_carts.get = (data, callback) => {
   // Check that id is valid
   const id = typeof (data.queryStringObject.id) == 'string' && data.queryStringObject.id.trim().length == 20 ? data.queryStringObject.id.trim() : false;
   if (id) {
@@ -90,11 +167,11 @@ _cart.get = (data, callback) => {
             // Return cart data
             callback(200, cartData);
           } else {
-            callback(403);
+            callback(403, {'Error': 'Missing required token in header or token is invalid.'});
           }
         });
       } else {
-        callback(404);
+        callback(404, {'Error': 'Could not find cart'});
       }
     });
   } else {
@@ -102,9 +179,39 @@ _cart.get = (data, callback) => {
   }
 };
 
-// cart - PUT
-// Required data: id, token, menuItems
-_cart.put = (data, callback) => {
+/**
+ * @apiVersion 1.0.0
+ * @apiName UpdateCart
+ * @apiGroup Carts
+ * @api {put} /carts Update cart
+ * @apiParam menuItems Required
+ * @apiHeader token Active token required
+ * @apiHeaderExample Header example
+ *     token: gid1btk4b0qg3wyqyivg
+ * @apiParamExample Request example
+ *     /carts?id=uiszdaz19pch42yfqktk
+ * @apiParamExample {json} Request body example
+ * {
+ *     "menuItems": [
+ *         {
+ *             "id": 1,
+ *             "name": "Margarita",
+ *             "price": 92
+ *         },
+ *         {
+ *             "id": 2,
+ *             "name": "Calzone",
+ *             "price": 109
+ *         }
+ *     ]
+ * }
+ * @apiSuccessExample Success
+ *     200 OK
+ * @apiSuccessExample Response body example
+ *     {}
+ * 
+ */
+_carts.put = (data, callback) => {
   // Check for required field
   const id = typeof (data.queryStringObject.id) == 'string' && data.queryStringObject.id.trim().length == 20 ? data.queryStringObject.id.trim() : false;
   const menuItems = typeof (data.payload.menuItems) == 'object' && data.payload.menuItems instanceof Array && data.payload.menuItems.length > 0 ? data.payload.menuItems : false;
@@ -148,10 +255,25 @@ _cart.put = (data, callback) => {
   }
 };
 
-// cart - DELETE
-// Required data: id
-// Optional data: none
-_cart.delete = (data, callback) => {
+/**
+ * @apiVersion 1.0.0
+ * @apiName DeleteCart
+ * @apiGroup Carts
+ * @api {del} /carts Delete cart
+ * @apiParam cartId Required
+ * @apiHeader token Active token required
+ * @apiHeaderExample Header example
+ *     token: gid1btk4b0qg3wyqyivg
+ * @apiParamExample Request example
+ *     /carts?id=uiszdaz19pch42yfqktk
+ * @apiSuccessExample Success
+ *     200 OK
+ * @apiSuccessExample Response body example
+ *     {}
+ * 
+ */
+
+_carts.delete = (data, callback) => {
   // Check that id is valid
   const id = typeof (data.queryStringObject.id) == 'string' && data.queryStringObject.id.trim().length == 20 ? data.queryStringObject.id.trim() : false;
   if (id) {
@@ -207,5 +329,5 @@ _cart.delete = (data, callback) => {
   }
 };
 
-// Export the _cart object
-module.exports = _cart;
+// Export the _carts object
+module.exports = _carts;

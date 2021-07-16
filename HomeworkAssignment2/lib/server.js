@@ -99,7 +99,8 @@ server.router = {
   'tokens': handlers.tokens,
   'menus': handlers.menus,
   'menuItems': handlers.menuItems,
-  'cart': handlers.cart
+  'carts': handlers.carts,
+  'orders': handlers.orders
 };
 
 // Initialize the servers

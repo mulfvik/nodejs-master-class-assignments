@@ -7,8 +7,8 @@ const usersHandler = require('./usersHandler');
 const tokensHandler = require('./tokensHandler');
 const menusHandler = require('./menusHandler');
 const menuItemsHandler = require('./menuItemsHandler');
-const cartHandler = require('./cartHandler');
-const orderHandler = require('./orderHandler');
+const cartsHandler = require('./cartsHandler');
+const ordersHandler = require('./ordersHandler');
 
 // Handlers container
 const handlers = {};
@@ -58,22 +58,22 @@ handlers.menuItems = (data, callback) => {
 };
 
 // Cart methods
-handlers.cart = (data, callback) => {
+handlers.carts = (data, callback) => {
   const acceptableMethods = ['post', 'get', 'put', 'delete'];
   if (acceptableMethods.indexOf(data.method) > -1) {
     // Call the cart handler
-    cartHandler[data.method](data, callback);
+    cartsHandler[data.method](data, callback);
   } else {
     callback(405);
   }
 };
 
 // Order methods
-handlers.order = (data, callback) => {
+handlers.orders = (data, callback) => {
   const acceptableMethods = ['post', 'get', 'put', 'delete'];
   if (acceptableMethods.indexOf(data.method) > -1) {
     // Call the order handler
-    orderHandler[data.method](data, callback);
+    ordersHandler[data.method](data, callback);
   } else {
     callback(405);
   }

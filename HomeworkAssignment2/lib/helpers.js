@@ -37,14 +37,11 @@ helpers.createRandomString = strLength => {
   if (strLength) {
     // Define all the possible characters that could go into a string
     const possibleCharacters = 'abcdefghijklmnopqrstuvwxyz0123456789';
-
     // Start the final string
     let str = '';
-
     for (i = 1; i <= strLength; i++) {
       // Get a random charactert from the possibleCharacters string
       const randomCharacter = possibleCharacters.charAt(Math.floor(Math.random() * possibleCharacters.length));
-
       // Append this character to the string
       str += randomCharacter;
     }
@@ -57,9 +54,21 @@ helpers.createRandomString = strLength => {
 
 // Check if email is valid
 helpers.validateEmail = email => {
+  email = typeof (email) === 'string' ? email : false;
   if (email) {
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return emailRegex.test(email);
+  } else {
+    return false;
+  }
+};
+
+// Get the total price from the carts menu items
+helpers.getCartTotal = menuItems => {
+  menuItems = typeof (menuItems) == 'object' && menuItems instanceof Array ? menuItems : [];
+  if (menuItems) {
+    const total = menuItems.map(item => item.price).reduce((a, b) => a + b);
+    return total * 100;
   } else {
     return false;
   }
@@ -91,7 +100,7 @@ helpers.stripePayment = (amount, currency, source, description, callback) => {
       'hostname': 'api.stripe.com',
       'method': 'POST',
       'path': '/v1/charges',
-      'auth': config.stripe.accountSID,
+      'auth': config.stripe.accountKey,
       'headers': {
         'Stripe-Version': '2019-03-14',
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -105,13 +114,8 @@ helpers.stripePayment = (amount, currency, source, description, callback) => {
       const status = res.statusCode;
       // Callback successfully if the request went through
       if (status == 200 || status == 201) {
-        // TODO Ta bort detta, endast för att test
         // Read the response object 
-        res.on('data', (data) => {
-          const resObject = JSON.parse(data);
-          callback(resObject.amount + ' ' + resObject.currency);
-          //callback(false);
-        });
+          callback(false);
       } else {
         callback('Status code returned was ' + status);
       }
@@ -192,6 +196,10 @@ helpers.mailgun = (to, subject, text, callback) => {
     callback('Given parameters were missing or invalid');
   }
 };
+
+
+
+
 
 // Export helpers object
 module.exports = helpers;

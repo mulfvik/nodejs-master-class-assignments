@@ -1,5 +1,286 @@
 [
   {
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "varname1",
+            "description": "<p>No type.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "varname2",
+            "description": "<p>With type.</p>"
+          }
+        ]
+      }
+    },
+    "type": "",
+    "url": "",
+    "version": "0.0.0",
+    "filename": "./docs/main.js",
+    "group": "C:\\_MIUL\\GIT\\nodejs-master-class-assignments\\HomeworkAssignment2\\docs\\main.js",
+    "groupTitle": "C:\\_MIUL\\GIT\\nodejs-master-class-assignments\\HomeworkAssignment2\\docs\\main.js",
+    "name": ""
+  },
+  {
+    "version": "1.0.0",
+    "name": "CreateCart",
+    "group": "Carts",
+    "type": "post",
+    "url": "/carts",
+    "title": "Create cart",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "menuItems",
+            "description": "<p>Required</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request body example",
+          "content": "{\n    \"menuItems\": [\n        {\n            \"id\": 1,\n            \"name\": \"Margarita\",\n            \"price\": 92\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Calzone\",\n            \"price\": 109\n        }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "token",
+            "description": "<p>Active token required</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header example",
+          "content": "token: gid1btk4b0qg3wyqyivg",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "200 OK",
+          "type": "json"
+        },
+        {
+          "title": "Response body example",
+          "content": "{\n    \"id\": \"ui04nlivf96zbajkvaxz\",\n    \"email\": \"john.doe@email.com\",\n    \"menuItems\": [\n        {\n            \"id\": 1,\n            \"name\": \"Margarita\",\n            \"toppings\": \"\",\n            \"price\": 92\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Calzone\",\n            \"toppings\": \"Ham\",\n            \"price\": 109\n        }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./handlers/cartsHandler.js",
+    "groupTitle": "Carts"
+  },
+  {
+    "version": "1.0.0",
+    "name": "DeleteCart",
+    "group": "Carts",
+    "type": "del",
+    "url": "/carts",
+    "title": "Delete cart",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "cartId",
+            "description": "<p>Required</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request example",
+          "content": "/carts?id=uiszdaz19pch42yfqktk",
+          "type": "json"
+        }
+      ]
+    },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "token",
+            "description": "<p>Active token required</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header example",
+          "content": "token: gid1btk4b0qg3wyqyivg",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "200 OK",
+          "type": "json"
+        },
+        {
+          "title": "Response body example",
+          "content": "{}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./handlers/cartsHandler.js",
+    "groupTitle": "Carts"
+  },
+  {
+    "version": "1.0.0",
+    "name": "GetCart",
+    "group": "Carts",
+    "type": "get",
+    "url": "/carts",
+    "title": "Get cart",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "cartId",
+            "description": "<p>Required</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request example",
+          "content": "/carts?id=uiszdaz19pch42yfqktk",
+          "type": "json"
+        }
+      ]
+    },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "token",
+            "description": "<p>Active token required</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header example",
+          "content": "token: gid1btk4b0qg3wyqyivg",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "200 OK",
+          "type": "json"
+        },
+        {
+          "title": "Response body example",
+          "content": "{\n    \"id\": \"uiszdaz19pch42yfqktk\",\n    \"email\": \"john.doe@email.com\",\n    \"menuItems\": [\n        {\n            \"id\": 1,\n            \"name\": \"Margarita\",\n            \"toppings\": \"\",\n            \"price\": 92\n        },\n        {\n            \"id\": 1,\n            \"name\": \"Margarita\",\n            \"toppings\": \"\",\n            \"price\": 109\n        }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./handlers/cartsHandler.js",
+    "groupTitle": "Carts"
+  },
+  {
+    "version": "1.0.0",
+    "name": "UpdateCart",
+    "group": "Carts",
+    "type": "put",
+    "url": "/carts",
+    "title": "Update cart",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "menuItems",
+            "description": "<p>Required</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request example",
+          "content": "/carts?id=uiszdaz19pch42yfqktk",
+          "type": "json"
+        },
+        {
+          "title": "Request body example",
+          "content": "{\n    \"menuItems\": [\n        {\n            \"id\": 1,\n            \"name\": \"Margarita\",\n            \"price\": 92\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Calzone\",\n            \"price\": 109\n        }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "token",
+            "description": "<p>Active token required</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header example",
+          "content": "token: gid1btk4b0qg3wyqyivg",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "200 OK",
+          "type": "json"
+        },
+        {
+          "title": "Response body example",
+          "content": "{}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./handlers/cartsHandler.js",
+    "groupTitle": "Carts"
+  },
+  {
     "version": "1.0.0",
     "name": "GetMenu",
     "group": "Menu",
@@ -85,6 +366,130 @@
     },
     "filename": "./handlers/menuItemsHandler.js",
     "groupTitle": "Menu"
+  },
+  {
+    "version": "1.0.0",
+    "name": "CreateOrder",
+    "group": "Orders",
+    "type": "post",
+    "url": "/orders",
+    "title": "Create order",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "cartId",
+            "description": "<p>Required</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request body example",
+          "content": "{\n  \"cartId\": \"ui04nlivf96zbajkvaxz\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "token",
+            "description": "<p>Active token required</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header example",
+          "content": "token: gid1btk4b0qg3wyqyivg",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "200 OK",
+          "type": "json"
+        },
+        {
+          "title": "Response body example",
+          "content": "{}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./handlers/ordersHandler.js",
+    "groupTitle": "Orders"
+  },
+  {
+    "version": "1.0.0",
+    "name": "GetOrders",
+    "group": "Orders",
+    "type": "get",
+    "url": "/orders",
+    "title": "Get order",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "orderId",
+            "description": "<p>Required</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request example",
+          "content": "/orders?id=5chf43l8zge8r0too909",
+          "type": "json"
+        }
+      ]
+    },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "token",
+            "description": "<p>Active token required</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header example",
+          "content": "token: gid1btk4b0qg3wyqyivg",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "200 OK",
+          "type": "json"
+        },
+        {
+          "title": "Response body example",
+          "content": "{\n    \"id\": \"5chf43l8zge8r0too909\",\n    \"email\": \"john.doe@email.com\",\n    \"cartId\": \"ui04nlivf96zbajkvaxz\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./handlers/ordersHandler.js",
+    "groupTitle": "Orders"
   },
   {
     "version": "1.0.0",
@@ -333,7 +738,7 @@
       "examples": [
         {
           "title": "Header example",
-          "content": "{\n  token: gid1btk4b0qg3wyqyivg\n}",
+          "content": "token: gid1btk4b0qg3wyqyivg",
           "type": "json"
         }
       ]
@@ -395,7 +800,7 @@
       "examples": [
         {
           "title": "Header example",
-          "content": "{\n  token: gid1btk4b0qg3wyqyivg\n}",
+          "content": "token: gid1btk4b0qg3wyqyivg",
           "type": "json"
         }
       ]
@@ -457,7 +862,7 @@
       "examples": [
         {
           "title": "Header example",
-          "content": "{\n  token: gid1btk4b0qg3wyqyivg\n}",
+          "content": "token: gid1btk4b0qg3wyqyivg",
           "type": "json"
         }
       ]

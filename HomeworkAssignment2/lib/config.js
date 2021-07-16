@@ -12,7 +12,7 @@ environments.staging = {
   'envName': 'staging',
   'hashingSecret': 'quiteSecret',
   'stripe': {
-    'accountSID': ''
+    'accountKey': ''
   },
   'mailgun': {
     'key': '',
@@ -28,7 +28,7 @@ environments.production = {
   'envName': 'production',
   'hashingSecret': 'superSecret',
   'stripe': {
-    'accountSID': ''
+    'accountKey': ''
   },
   'mailgun': {
     'key': '',
