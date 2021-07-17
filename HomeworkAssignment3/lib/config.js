@@ -12,11 +12,11 @@ environments.staging = {
   'envName': 'staging',
   'hashingSecret': 'quiteSecret',
   'stripe': {
-    'accountKey': 'sk_test_5KdUX57gTv0B6NvDVUlzH243'
+    'accountKey': ''
   },
   'mailgun': {
-    'key': 'ee18fabca9b2c7c507029d763c6554ce-afab6073-ef620c63',
-    'domain': 'sandboxc9f9cd3e2c5148d8afe23b39e3a1f13a.mailgun.org',
+    'key': '',
+    'domain': '',
     'from': 'Pizza delivery <mailgun@sandboxc9f9cd3e2c5148d8afe23b39e3a1f13a.mailgun.org>'
   }
 };
